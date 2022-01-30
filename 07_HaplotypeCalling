@@ -1,0 +1,37 @@
+#! /bin/bash -l
+#SBATCH -A project name
+#SBATCH -p core
+#SBATCH -n 12
+#SBATCH -J HaplotypeCaller
+#SBATCH -t 24:00:00
+
+module load bioinfo-tools
+module load GATK/3.8-0
+
+
+#HaplotypeCaller
+
+java -jar $GATK_HOME/GenomeAnalysisTK.jar -T HaplotypeCaller \
+    -R /sw/data/uppnex/piper_references/2016-04-07/gatk_bundle/2.8/b37/human_g1k_v37.fasta \
+    -I Control01_DupRemoved.bam \
+    --BQSR Control01.BaseRecalibrator.table \
+    --emitRefConfidence GVCF \
+    -o Control01.g.vcf
+
+
+java -jar $GATK_HOME/GenomeAnalysisTK.jar -T HaplotypeCaller \
+    -R /sw/data/uppnex/piper_references/2016-04-07/gatk_bundle/2.8/b37/human_g1k_v37.fasta \
+    -I Control02_DupRemoved.bam \
+    --BQSR Control02.BaseRecalibrator.table \
+    --emitRefConfidence GVCF \
+    -o Control02.g.vcf
+    
+
+java -jar $GATK_HOME/GenomeAnalysisTK.jar -T HaplotypeCaller \
+    -R /sw/data/uppnex/piper_references/2016-04-07/gatk_bundle/2.8/b37/human_g1k_v37.fasta \
+    -I Control03_DupRemoved.bam \
+    --BQSR Control03.BaseRecalibrator.table \
+    --emitRefConfidence GVCF \
+    -o Control03.g.vcf    
+    
+ echo HaplotypeCaller done   
