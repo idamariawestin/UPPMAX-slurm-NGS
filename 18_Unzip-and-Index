@@ -1,0 +1,2 @@
+gunzip HardFiltered_SNPs_controls_date.vcf.gz
+igvtools index HardFiltered_SNPs_controls_date.vcf  (IGVtools 2.3.98)
