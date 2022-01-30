@@ -1,0 +1,38 @@
+#! /bin/bash -l
+#SBATCH -A project name
+#SBATCH -p core
+#SBATCH -n 4
+#SBATCH -J RemoveDuplicates
+#SBATCH -t 12:00:00
+
+module load bioinfo-tools
+module load picard/2.10.3
+
+
+#Remove Duplicates
+
+java -jar $PICARD_HOME/picard.jar MarkDuplicates \
+        I=Control01_Sorted.bam \
+        O=Control01_DupRemoved.bam \
+        REMOVE_DUPLICATES=true \
+        CREATE_INDEX=true \
+        VALIDATION_STRINGENCY=SILENT \
+        M=Duplicates/picard/Control01_DupRemoved.metrics
+
+java -jar $PICARD_HOME/picard.jar MarkDuplicates \
+        I=Control02_Sorted.bam \
+        O=Control02_DupRemoved.bam \
+        REMOVE_DUPLICATES=true \
+        CREATE_INDEX=true \
+        VALIDATION_STRINGENCY=SILENT \
+        M=Duplicates/picard/Control02_DupRemoved.metrics
+ 
+ java -jar $PICARD_HOME/picard.jar MarkDuplicates \
+        I=Control03_Sorted.bam \
+        O=Control03_DupRemoved.bam \
+        REMOVE_DUPLICATES=true \
+        CREATE_INDEX=true \
+        VALIDATION_STRINGENCY=SILENT \
+        M=Duplicates/picard/Control03_DupRemoved.metrics
+        
+  echo RemoveDuplicates done
