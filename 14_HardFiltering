@@ -1,0 +1,27 @@
+#! /bin/bash -l
+#SBATCH -A project name
+#SBATCH -p devcore
+#SBATCH -n 1
+#SBATCH -J HardFilters
+#SBATCH -t 00:05:00
+
+
+module load bioinfo-tools
+module load GATK/3.8-0
+
+
+#Hard Filtering
+
+java -jar $GATK_HOME/GenomeAnalysisTK.jar -T VariantFiltration \
+    -R /sw/data/uppnex/piper_references/2016-04-07/gatk_bundle/2.8/b37/human_g1k_v37.fasta \
+    -V Date_SNPs_controls_NoCallGenotypesRemoved.vcf \
+    --filterExpression "QD < 2.0" --filterName "QD2" \
+    --filterExpression "FS > 60.0" --filterName "FS60" \
+    --filterExpression "MQ < 40.0" --filterName "MQ40" \
+    --filterExpression "MQRankSum < -12.5" --filterName "MQRankSum-12.5" \
+    --filterExpression "ReadPosRankSum < -8.0" --filterName "ReadPosRankSum-8" \
+    --filterExpression "SOR > 3.0" --filterName "SOR3" \
+    -o HardFiltered_SNPs_controls.date.vcf.gz
+
+
+echo HardFiltering done
