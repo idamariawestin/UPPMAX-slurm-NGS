@@ -1,0 +1,23 @@
+#! /bin/bash -l
+#SBATCH -A project name
+#SBATCH -p core
+#SBATCH -n 6
+#SBATCH -J SAM
+#SBATCH -t 16:00:00
+
+module load bioinfo-tools
+module load bwa/0.7.17
+module load samtools/1.9
+
+
+#make SAM-file
+bwa mem -t 5 /sw/data/uppnex/piper_references/2016-04-07/gatk_bundle/2.8/b37/human_g1k_v37.fasta \
+ Control01_1.fq.gz Control01_2.fq.gz > Control01.sam
+
+bwa mem -t 5 /sw/data/uppnex/piper_references/2016-04-07/gatk_bundle/2.8/b37/human_g1k_v37.fasta \
+ Control02_1.fq.gz Control02_2.fq.gz > Control02.sam
+
+bwa mem -t 5 /sw/data/uppnex/piper_references/2016-04-07/gatk_bundle/2.8/b37/human_g1k_v37.fasta \
+ Control03_1.fq.gz Control03_2.fq.gz > Control03.sam
+ 
+echo BWA and SAM done
