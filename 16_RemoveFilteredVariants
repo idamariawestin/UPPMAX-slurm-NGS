@@ -1,0 +1,25 @@
+#! /bin/bash -l
+#SBATCH -A project name
+#SBATCH -p core
+#SBATCH -n 1
+#SBATCH -J RemoveFilteredVariants
+#SBATCH -t 00:30:00
+
+module load bioinfo-tools
+module load vcftools/0.1.15
+module load samtools/1.9
+module load GATK/3.8-0
+
+
+#Remove Filtered Variants
+
+vcftools --vcf HardFiltered_SNPs_controls_date.vcf.gz \
+    --not-chr M \
+    --remove-filtered-all \
+    --recode \
+    --recode-INFO-all \
+    --stdout \
+    | gzip > Controls_date_filtered_variants_removed.vcf.gz
+
+
+echo RemoveFilteredVariants done
