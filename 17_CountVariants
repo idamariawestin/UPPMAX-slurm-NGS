@@ -1,0 +1,2 @@
+#Count variants after filtering and compare with input-file
+cat File.vcf | grep -v "^#" | wc -l
