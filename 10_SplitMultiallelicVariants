@@ -1,0 +1,19 @@
+#! /bin/bash -l
+#SBATCH -A project name
+#SBATCH -p core
+#SBATCH -n 1
+#SBATCH -J SplitMultiAllelicVariants
+#SBATCH -t 00:05:00
+
+module load bioinfo-tools
+module load vcftools/0.1.15
+module load bcftools/1.8
+module load IGVtools/2.3.98
+
+#Split multiallelic SNPs into separate rows
+
+bcftools norm -m -both Controls_date_filtered_variants_removed.vcf.gz -Ov -o Controls_date_split.vcf
+igvtools index Controls_date_split.vcf
+
+
+echo Splitting done
