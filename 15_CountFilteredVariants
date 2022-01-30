@@ -1,0 +1,2 @@
+zgrep -v ^# HardFiltered_SNPs_200329.vcf.gz | cut -f7 | less
+zgrep -v ^# HardFiltered_SNPs_200329.vcf.gz | cut -f7 | grep SOR3 | wc
