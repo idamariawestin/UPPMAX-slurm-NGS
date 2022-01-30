@@ -1,0 +1,45 @@
+#! /bin/bash -l
+#SBATCH -A project name
+#SBATCH -p core
+#SBATCH -n 6
+#SBATCH -J SortBAM
+#SBATCH -t 30:00:00
+
+module load bioinfo-tools
+module load picard/2.10.3
+
+
+#make Sort BAM-file
+
+java -jar $PICARD_HOME/picard.jar AddOrReplaceReadGroups \
+        I=Control01_Reordered.bam \
+        O=Control01_Sorted.bam \
+        SO=coordinate \
+        RGID=Control01_210610 \
+        RGLB=2017 \
+        RGPL=illumina \
+        RGPU=001 \
+        RGSM=Control01
+        
+java -jar $PICARD_HOME/picard.jar AddOrReplaceReadGroups \
+        I=Control02_Reordered.bam \
+        O=Control02_Sorted.bam \
+        SO=coordinate \
+        RGID=Control02_210610 \
+        RGLB=2017 \
+        RGPL=illumina \
+        RGPU=001 \
+        RGSM=Control02
+
+
+java -jar $PICARD_HOME/picard.jar AddOrReplaceReadGroups \
+        I=Control03_Reordered.bam \
+        O=Control03_Sorted.bam \
+        SO=coordinate \
+        RGID=Control03_210610 \
+        RGLB=2017 \
+        RGPL=illumina \
+        RGPU=001 \
+        RGSM=Control03
+
+echo sorting done
